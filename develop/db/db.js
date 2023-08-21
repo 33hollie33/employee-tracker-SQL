@@ -60,3 +60,67 @@ const updateEmployeeRole = async (role_id, employee_id) => {
     return result;
 };
 
+// BONUS // 
+const updateEmployeeManager = async (employee_id, manager_id) => {
+    const result = await connection.execute('UPDATE employee SET manager_id = ? where id = ?', [manager_id, employee_id]);
+    return result;
+}
+
+const deleteDepartment = async (department_id) => {
+    await connection.execute('UPDATE ROLE SET department_id = null where department_id = ?', [department_id]);
+    const result = await connection.execute('DELETE from department where id = ? ', [department_id]);
+    return result;
+}
+
+const deleteRole = async (role_id) => {
+    await connection.execute('update employee set role_id = null where role_id = ?', [role_id]);
+    const result = await connection.execute('DELETE from role where id = ? ', [role_id]);
+    return result;
+}
+
+const viewEmployeesByManager = async (manager_id) => {
+    const [rows, fields] = await connection.execute('SELECT id, first_name, last_name, role_id FROM employee where manager_id = ?', [manager_id]);
+    return rows;
+}
+
+const viewEmployeesByDepartment = async (department_id) => {
+    const [rows, fields] = await connection.execute('SELECT * FROM EMPLOYEE e JOIN ROLE r ON e.role_id = r.id where r.department_id = ?', [department_id]);
+    return rows;
+}
+
+const deleteEmployees = async (employee_id) => {
+    connection.execute('update employee set manager_id = null where manager_id = ', [employee_id]);
+    const result = await connection.execute('DELETE from employee where id = ?', [employee_id]);
+    return result;
+}
+
+const viewDepatmentBudget = async (department_id) => {
+    const [rows, fields] = await connection.execute(
+        'select d.id, d.name, sum(salary) as budget from role r JOIN employee e on r.id = e.role_id join department d on d.id = r.department_id where r.department_id = ?', [department_id]
+    )
+    return rows;
+}
+
+const updateRoleDepartment = async (department_id, role_id) => {
+    const result = await connection.execute('update role set department_id = ? where id = ?', [department_id, role_id]);
+    return result;
+}
+
+module.exports = {
+    viewAllDepartments,
+    viewAllRoles,
+    viewAllEmployees,
+    addDepartment,
+    addRole,
+    addEmployee,
+    updateEmployeeRole,
+    deleteDepartment,
+    updateEmployeeManager,
+    deleteRole,
+    viewEmployeesByManager,
+    viewEmployeesByDepartment,
+    deleteEmployees,
+    viewDepatmentBudget,
+    updateRoleDepartment
+};
+
