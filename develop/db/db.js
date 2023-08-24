@@ -89,7 +89,7 @@ const viewEmployeesByDepartment = async (department_id) => {
 }
 
 const deleteEmployees = async (employee_id) => {
-    connection.execute('update employee set manager_id = null where manager_id = ', [employee_id]);
+    connection.execute('update employee set employee_id = null where employee_id = ', [employee_id]);
     const result = await connection.execute('DELETE from employee where id = ?', [employee_id]);
     return result;
 }
