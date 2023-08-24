@@ -84,20 +84,21 @@ const viewEmployeesByManager = async (manager_id) => {
 }
 
 const viewEmployeesByDepartment = async (department_id) => {
-    const [rows, fields] = await connection.execute('SELECT * FROM EMPLOYEE e JOIN ROLE r ON e.role_id = r.id where r.department_id = ?', [department_id]);
+    const [rows, fields] = await connection.execute(
+        'SELECT * FROM EMPLOYEE e JOIN ROLE r ON e.role_id = r.id where r.department_id = ?', [department_id]
+        );
     return rows;
 }
 
 const deleteEmployees = async (employee_id) => {
-    connection.execute('update employee set employee_id = null where employee_id = ', [employee_id]);
+    connection.execute('UPDATE employee set employee_id = null where employee_id = ', [employee_id]);
     const result = await connection.execute('DELETE from employee where id = ?', [employee_id]);
     return result;
 }
 
 const viewDepatmentBudget = async (department_id) => {
     const [rows, fields] = await connection.execute(
-        'select d.id, d.name, sum(salary) as budget from role r JOIN employee e on r.id = e.role_id join department d on d.id = r.department_id where r.department_id = ?', [department_id]
-    )
+        'select d.id, d.name, sum(salary) as budget from role r JOIN employee e on r.id = e.role_id join department d on d.id = r.department_id where r.department_id = ?', [department_id]);
     return rows;
 }
 
