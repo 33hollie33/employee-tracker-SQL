@@ -88,10 +88,9 @@ const viewEmployeesByDepartment = async (department_id) => {
         'SELECT * FROM EMPLOYEE e JOIN ROLE r ON e.role_id = r.id where r.department_id = ?', [department_id]);
     return rows;
 }
-
 const deleteEmployees = async (employee_id) => {
-    await connection.execute('UPDATE EMPLOYEE SET employee_id = null where employee_id = ? ', [employee_id]);
-    const result = await connection.execute('DELETE from employee where id = ?', [employee_id]);
+    await connection.execute('UPDATE employee SET manager_id = null where manager_id = ?', [employee_id]);
+    const result = await connection.execute('DELETE from employee where id = ? ', [employee_id]);
     return result;
 }
 
