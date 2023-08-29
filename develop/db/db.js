@@ -61,17 +61,20 @@ const updateEmployeeRole = async (role_id, employee_id) => {
 };
 
 // BONUS // 
+// function to update employee manager
 const updateEmployeeManager = async (employee_id, manager_id) => {
     const result = await connection.execute('UPDATE employee SET manager_id = ? where id = ?', [manager_id, employee_id]);
     return result;
 }
 
+// dunction to delete department
 const deleteDepartment = async (department_id) => {
     await connection.execute('UPDATE ROLE SET department_id = null where department_id = ?', [department_id]);
     const result = await connection.execute('DELETE from department where id = ? ', [department_id]);
     return result;
 }
 
+// function to delete the role 
 const deleteRole = async (role_id) => {
     await connection.execute('update employee set role_id = null where role_id = ?', [role_id]);
     const result = await connection.execute('DELETE from role where id = ? ', [role_id]);
