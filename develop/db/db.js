@@ -60,7 +60,7 @@ const updateEmployeeRole = async (role_id, employee_id) => {
     return result;
 };
 
-// BONUS // 
+
 // function to update employee manager
 const updateEmployeeManager = async (employee_id, manager_id) => {
     const result = await connection.execute('UPDATE employee SET manager_id = ? where id = ?', [manager_id, employee_id]);
@@ -101,12 +101,14 @@ const deleteEmployees = async (employee_id) => {
     return result;
 }
 
+// function to view department by budgets
 const viewDepatmentBudget = async (department_id) => {
     const [rows, fields] = await connection.execute(
         'select d.id, d.name, sum(salary) as budget from role r JOIN employee e on r.id = e.role_id join department d on d.id = r.department_id where r.department_id = ?', [department_id]);
     return rows;
 }
 
+// function to allow the user to update the role department
 const updateRoleDepartment = async (department_id, role_id) => {
     const result = await connection.execute('update role set department_id = ? where id = ?', [department_id, role_id]);
     return result;
