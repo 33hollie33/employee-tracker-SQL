@@ -52,4 +52,4 @@ This project is licensed under the terms of MIT.  (https://opensource.org/licens
   Github: https://github.com/33hollie33 
 
   ## Video walk through of how the application works
-chrome-extension://mmeijimgabbpbgpdklnllpncmdofkcpn/app.html#/files/d525c7b9-b1d5-44e8-y852-214da91c6445 
+https://drive.google.com/file/d/10kwJLpAcr-vxvshlgXYpUhh2DifaoeAn/view 
