@@ -81,11 +81,13 @@ const deleteRole = async (role_id) => {
     return result;
 }
 
+// function to allow the user to view employees by manager
 const viewEmployeesByManager = async (manager_id) => {
     const [rows, fields] = await connection.execute('SELECT id, first_name, last_name, role_id FROM employee where manager_id = ?', [manager_id]);
     return rows;
 }
 
+// function to view employees by department
 const viewEmployeesByDepartment = async (department_id) => {
     const [rows, fields] = await connection.execute(
         'SELECT * FROM EMPLOYEE e JOIN ROLE r ON e.role_id = r.id where r.department_id = ?', [department_id]);
